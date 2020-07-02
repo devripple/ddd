@@ -2,6 +2,7 @@ package exam.paperContext.userInterface;
 
 import exam.paperContext.application.AssemblePaperCommand;
 import exam.paperContext.application.PaperApplicationService;
+import exam.paperContext.application.ReAssemblePaperCommand;
 import exam.paperContext.domain.model.paper.Paper;
 import exam.paperContext.domain.model.paper.PaperId;
 import exam.paperContext.infrastructure.MemoryPaperReadRepository;
@@ -31,7 +32,8 @@ public class PaperController {
         return PaperDTO.from(paperId);
     }
 
-    @GetMapping("/papers") //读请求,获取倒序排列的Paper
+    @GetMapping("/papers")
+        //读请求,获取倒序排列的Paper
     List<Paper> getAll() {
         return paperReadRepository.getAllByReversedOrder();
     }
@@ -40,5 +42,13 @@ public class PaperController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void reassemble(@PathVariable String paperId, @RequestBody AssemblePaperCommand command) {
         paperApplicationService.reassemblePaper(paperId, command);
+    }
+
+    @PutMapping("/papers/{paperId}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    PaperDTO reassemble(@RequestBody AssemblePaperCommand command, @PathVariable String paperId) {
+        final PaperId paper = paperApplicationService.reassemblePaper(paperId, command);
+        return PaperDTO.from(paper);
     }
 }

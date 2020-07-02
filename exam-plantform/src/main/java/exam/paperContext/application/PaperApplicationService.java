@@ -43,7 +43,7 @@ public class PaperApplicationService {
         return paperRepository.getAll();
     }
 
-    public void reassemblePaper(String paperId, AssemblePaperCommand command) {
+    public PaperId reassemblePaper(String paperId, AssemblePaperCommand command) {
         final Paper paper = paperRepository.find(new PaperId(paperId));
         List<BlankQuizDto> blankQuizDtos = blankQuizFrom(command);
         final String teacherId = command.getTeacherId();
@@ -51,10 +51,12 @@ public class PaperApplicationService {
         paper.reassemble(teacherId, blankQuizDtos.stream()
                 .map(BlankQuizDto::toBlankQuiz)
                 .collect(toList()));
+
+        return paper.getPaperId();
     }
 
     private List<BlankQuizDto> blankQuizFrom(AssemblePaperCommand command) {
-        return command.getQuizzes().stream().map(quiz -> new BlankQuizDto(quiz.getQuizId(),
+        return command.getQuizzes().stream().map(quiz -> new BlankQuizDto(quiz.getQuizBankId(),
                 quiz.getScore())).collect(toList());
     }
 }

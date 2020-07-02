@@ -12,7 +12,7 @@
 
 ### 说明
 
-目前仅有 quizBank 部分
+目前仅有 blankQuiz 部分
 
 
 

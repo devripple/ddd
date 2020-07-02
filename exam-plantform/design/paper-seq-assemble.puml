@@ -1,6 +1,6 @@
 @startuml
 actor Teacher
-Teacher -> PaperController : POST /quizBank
+Teacher -> PaperController : POST /blankQuiz
 PaperController -> PaperController: transform()
 PaperController -> PaperService : assemblePaper()
 PaperService -> PaperRepository: nextPaperId()

@@ -1,6 +1,6 @@
 @startuml
 actor Teacher
-Teacher -> PaperController : PUT /quizBank/:paper_id
+Teacher -> PaperController : PUT /blankQuiz/:paper_id
 PaperController -> PaperController: transform()
 PaperController -> PaperService : reassemblePaper()
 entity Paper

@@ -1,7 +1,7 @@
 @startuml
 
 
-package quizBank <<Aggregate>> {
+package blankQuiz <<Aggregate>> {
     class Paper <<Aggregate Root>> {
         paperId: PaperId
         createTime: DateTime
